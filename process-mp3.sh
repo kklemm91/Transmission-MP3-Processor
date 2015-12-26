@@ -1,5 +1,5 @@
+#!/bin/sh
 # Author: Kevin Klemm
-# Script for adding mp3 files to iTunes on then client machine when downloaded from a Synology server running Transmission
 
 #################################################################################
 # These are inherited from Transmission.                                        #
@@ -16,24 +16,24 @@
 #################################################################################
 #                                    CONSTANTS                                  #
 #################################################################################
-USERNAME="kevin"
-CLIENT="192.168.1.4"
-ITUNES_DIR="/Volumes/Media/iTunes/Automatically\ Add\ To\ iTunes.localized/"
 
-# These can be left alone
-DESTINATION="$USERNAME@$CLIENT:$ITUNES_DIR"
-LOGFILE="/volume1/@appstore/transmission/var/process-mp3.log"
+USER="kevin"
+CLIENT="192.168.1.4"
+FOLDER="/Volumes/Media/iTunes/Automatically\ Add\ To\ iTunes.localized"
+
+LOG_FILE="/volume1/@appstore/transmission/var/process-mp3.log"
+DESTINATION="$USER@$CLIENT:$FOLDER"
 TR_DOWNLOADS="$TR_TORRENT_DIR/$TR_TORRENT_NAME"
 
 #################################################################################
 #                                 SCRIPT CONTROL                                #
 #################################################################################
 
-function edate 
+edate ()
 {
-  echo "`date '+%Y-%m-%d %H:%M:%S'`    $1" >> "$LOGFILE"
+  echo "`date '+%Y-%m-%d %H:%M:%S'`  $1" >> $LOG_FILE
 }
-
+  
 edate "Processing $TR_DOWNLOADS"
 
 if [ -d "$TR_DOWNLOADS" ]; then
@@ -42,18 +42,19 @@ if [ -d "$TR_DOWNLOADS" ]; then
     cd $directory > /dev/null 2>&1
     files=$(ls *.mp3 2> /dev/null | wc -l)
     if [ $files != "0" ]; then
-      chown "$USERNAME":staff "$TR_DOWNLOADS"
+      chown "$USER":staff "$TR_DOWNLOADS"
       chmod 777 "$TR_DOWNLOADS"
-      scp -p -r "$TR_DOWNLOADS" "$DESTINATION" >> $LOGFILE
+      scp -p -r "$TR_DOWNLOADS" "$DESTINATION"
       break
     fi
   done
 elif [ -f "$TR_DOWNLOADS" ]; then
   if [[ "$TR_DOWNLOADS" == *.mp3 ]]; then
-    chown "$USERNAME":staff "$TR_DOWNLOADS"
+    chown "$USER":staff "$TR_DOWNLOADS"
     chmod 777 "$TR_DOWNLOADS"
-    scp -p "$TR_DOWNLOADS" "$DESTINATION" >> $LOGFILE
+    scp -p "$TR_DOWNLOADS" "$DESTINATION"
   fi
 fi
 
-edate "Finished"
+edate "Done"
+
