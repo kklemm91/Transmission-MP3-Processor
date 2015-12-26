@@ -22,7 +22,7 @@ ITUNES_DIR="/Volumes/Media/iTunes/Automatically\ Add\ To\ iTunes.localized/"
 
 # These can be left alone
 DESTINATION="$USERNAME@$CLIENT:$ITUNES_DIR"
-LOGFILE="/volume1/@appstore/transmission/var/process_mp3.log"
+LOGFILE="/volume1/@appstore/transmission/var/process-mp3.log"
 TR_DOWNLOADS="$TR_TORRENT_DIR/$TR_TORRENT_NAME"
 
 #################################################################################
