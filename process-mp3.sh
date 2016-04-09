@@ -33,7 +33,7 @@ edate ()
 {
   echo "`date '+%Y-%m-%d %H:%M:%S'`  $1" >> $LOG_FILE
 }
-  
+
 edate "Processing $TR_DOWNLOADS"
 
 if [ -d "$TR_DOWNLOADS" ]; then
@@ -42,16 +42,12 @@ if [ -d "$TR_DOWNLOADS" ]; then
     cd $directory > /dev/null 2>&1
     files=$(ls *.mp3 2> /dev/null | wc -l)
     if [ $files != "0" ]; then
-      chown "$USER":staff "$TR_DOWNLOADS"
-      chmod 777 "$TR_DOWNLOADS"
       scp -p -r "$TR_DOWNLOADS" "$DESTINATION"
       break
     fi
   done
 elif [ -f "$TR_DOWNLOADS" ]; then
   if [[ "$TR_DOWNLOADS" == *.mp3 ]]; then
-    chown "$USER":staff "$TR_DOWNLOADS"
-    chmod 777 "$TR_DOWNLOADS"
     scp -p "$TR_DOWNLOADS" "$DESTINATION"
   fi
 fi
