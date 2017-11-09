@@ -17,9 +17,9 @@
 #                                    CONSTANTS                                  #
 #################################################################################
 
-USER="kevin"
-CLIENT="192.168.1.4"
-FOLDER="/Volumes/Media/iTunes/Automatically\ Add\ To\ iTunes.localized"
+USER="USER"
+CLIENT="192.168.1.X"
+FOLDER="/Volumes/iTunes/Automatically\ Add\ To\ iTunes.localized"
 
 LOG_FILE="/volume1/@appstore/transmission/var/process-mp3.log"
 DESTINATION="$USER@$CLIENT:$FOLDER"
